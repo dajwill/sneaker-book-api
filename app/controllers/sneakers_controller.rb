@@ -13,6 +13,12 @@ class SneakersController < ApplicationController
     render json: @sneaker
   end
 
+  # GET /sneakers/1/notes
+  def notes
+    @notes = Note.where(sneaker_id: params[:id])
+    render json: @notes
+  end
+
   # POST /sneakers
   def create
     @sneaker = Sneaker.new(sneaker_params)
@@ -42,10 +48,11 @@ class SneakersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_sneaker
       @sneaker = Sneaker.find(params[:id])
+      # @sneaker = Sneaker.joins(:notes).find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def sneaker_params
-      params.fetch(:sneaker, {})
+      params.require(:sneaker).permit(:name, :company)
     end
 end
