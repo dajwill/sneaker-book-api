@@ -8,6 +8,12 @@ class AuthorsController < ApplicationController
     render json: @authors
   end
 
+  # POST /login
+  def login
+    @author = Author.find_or_create_by(username: params[:username])
+    render json: @author
+  end
+
   # GET /authors/1
   def show
     render json: @author

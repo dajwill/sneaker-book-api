@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :authors
 
   get 'sneakers/:id/notes', :to => 'sneakers#notes'
+  post 'login', :to => 'authors#login'
 end

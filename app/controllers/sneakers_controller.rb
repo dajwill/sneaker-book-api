@@ -3,13 +3,14 @@ class SneakersController < ApplicationController
 
   # GET /sneakers
   def index
-    @sneakers = Sneaker.all
+    @sneakers = Sneaker.includes(:notes).all
 
     render json: @sneakers
   end
 
   # GET /sneakers/1
   def show
+    @sneaker.notes = Note.includes(:author).where(sneaker_id: params[:id])
     render json: @sneaker
   end
 
